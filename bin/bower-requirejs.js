@@ -10,12 +10,12 @@ var opts = nopt({
   version: Boolean,
   config: path,
   exclude: Array,
-  'base-url': path,
-  baseUrl: path, // alias for --base-url
+  baseUrl: path,
   transitive: Boolean,
   shim: Boolean,
   'exclude-dev': Boolean
 }, {
+  'base-url': '--baseUrl',
   h: '--help',
   v: '--version',
   c: '--config',
@@ -25,10 +25,6 @@ var opts = nopt({
   s: '--shim',
   d: '--exclude-dev'
 });
-
-if (opts['base-url']) {
-  opts.baseUrl = opts['base-url'];
-}
 
 function help() {
   var out = [
