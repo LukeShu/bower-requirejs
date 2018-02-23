@@ -1,7 +1,7 @@
 # bower-requirejs [![Build Status](https://secure.travis-ci.org/yeoman/bower-requirejs.svg?branch=master)](http://travis-ci.org/yeoman/bower-requirejs)
 
-> Automagically wire-up installed Bower components into your RequireJS config
-
+> Automagically wire-up installed Bower components into your RequireJS
+> config
 
 ## Install
 
@@ -9,13 +9,11 @@
 $ npm install --save bower-requirejs
 ```
 
-
 ## Usage
 
-```
+```sh
 ./node_modules/.bin/bower-requirejs -c path/to/config.js -e underscore -e jquery
 ```
-
 
 ## Options
 
@@ -30,12 +28,15 @@ $ npm install --save bower-requirejs
 -d, --exclude-dev       # Exclude devDependencies
 ```
 
-
 ## Using Bower Hooks
 
-Bower >=v1.3.1 includes [hooks](https://github.com/bower/bower/blob/master/HOOKS.md) for `preinstall`, `postinstall` and `preuninstall` actions. To run grunt-bower-requirejs after every bower install, add a `scripts` block to your `.bowerrc`.
+Bower >=v1.3.1 includes [hooks][bower-hooks] for `preinstall`,
+`postinstall` and `preuninstall` actions.  To run grunt-bower-requirejs
+after every bower install, add a `scripts` block to your `.bowerrc`.
 
-```
+[bower-hooks]: https://github.com/bower/bower/blob/master/HOOKS.md
+
+```js
 {
   "scripts": {
     "postinstall": "bower-requirejs -c path/to/config.js"
@@ -43,23 +44,25 @@ Bower >=v1.3.1 includes [hooks](https://github.com/bower/bower/blob/master/HOOKS
 }
 ```
 
-
 ## Things to remember
 
 ### Config file
 
-If you do not already have a `config.js` file at the location specified by the `--config` option then one will be generated for you. A basic `config.js` file looks like this:
+If you do not already have a `config.js` file at the location
+specified by the `--config` option then one will be generated for
+you. A basic `config.js` file looks like this:
 
-``` js
+```js
 require.config({
   shim: {},
   paths: {}
 });
 ```
 
-You still need to create a path for *your* js files. This tool will only create paths for third party libraries specified in `bower.json`.
+You still need to create a path for *your* js files. This tool will
+only create paths for third party libraries specified in `bower.json`.
 
-``` js
+```js
 require.config({
   shim: {},
   paths: {
@@ -68,31 +71,43 @@ require.config({
 });
 ```
 
-The tool does not overwrite the config file, it just adds additional paths to it. So paths you add will be preserved. Keep in mind that if you change or remove one of your Bower dependencies after you've run the task, that path will still exist in the config file and you'll need to manually remove it.
-
+The tool does not overwrite the config file, it just adds additional
+paths to it. So paths you add will be preserved. Keep in mind that if
+you change or remove one of your Bower dependencies after you've run
+the task, that path will still exist in the config file and you'll
+need to manually remove it.
 
 ### Transitive option
 
-If the transitive option is set to ```true```, then transitive dependencies will be also added to the require config.
+If the transitive option is set to `true`, then transitive
+dependencies will be also added to the require config.
 
-For example, say we explicitly have an entry in our bower config for module ```myTotallyCoolModule```, which depends on ```jQuery``` and ```underscore```. If the transitive option is set to ```true```, there will be config entries for ```myTotallyCoolModule```, ```jQuery```, and ```underscore```. Otherwise, if the transitive option is set to ```false```, there will only be a config entry for ```myTotallyCoolModule```.
+For example, say we explicitly have an entry in our bower config for
+module `myTotallyCoolModule`, which depends on `jQuery` and
+`underscore`. If the transitive option is set to `true`, there will be
+config entries for `myTotallyCoolModule`, `jQuery`, and
+`underscore`. Otherwise, if the transitive option is set to `false`,
+there will only be a config entry for `myTotallyCoolModule`.
 
-Each transitive dependency is only included once, even if the dependency is used multiple times.
+Each transitive dependency is only included once, even if the
+dependency is used multiple times.
 
 ### exclude-dev option
 
-If the `exclude-dev` option is set to ```true```, then dev-dependencies will not be added to the require config.
-
+If the `exclude-dev` option is set to `true`, then dev-dependencies
+will not be added to the require config.
 
 ### RequireJS component
 
 ## Package Support
 
-If a dependency's `moduleType` is set to `node` in `bower.json` it will be treated as a [CommonJS Package](http://requirejs.org/docs/api.html#packages).
+If a dependency's `moduleType` is set to `node` in `bower.json` it
+will be treated as a [CommonJS
+Package](http://requirejs.org/docs/api.html#packages).
 
 The following `bower.json` file:
 
-``` js
+```js
 {
   "name": "node-module-type-stub",
   "version": "0.0.1",
@@ -103,7 +118,7 @@ The following `bower.json` file:
 
 Will generate this entry in your `config.js` file:
 
-```
+```js
 require.config({
   shim: {},
   packages: [
@@ -118,11 +133,11 @@ require.config({
 
 ### Overriding the main file of a dependency
 
-You can override the main file of a given dependency by specifying the `overrides.{dependency}.main` property
-in your `bower.json` file:
+You can override the main file of a given dependency by specifying the
+`overrides.{dependency}.main` property in your `bower.json` file:
 
 ```js
-{  
+{
   "overrides": {
      "jquery": {
        "main": "jquery.min.js"
@@ -140,10 +155,18 @@ in your `bower.json` file:
 
 ### bowerRequireJS(options, callback)
 
-- `options` — An [options object](https://github.com/yeoman/bower-requirejs#options) containing optional config, baseUrl, and exclude options. The `config` option specifies an output file to which the generated require.js config will be written. If a require.js config file already exists at this location, the generated config will be merged into this file.
-- `callback` — A callback to execute when the task is finished. This callback will receive an object that contains the require.js configuration generated from bower components. Note that this includes *only* config elements representing bower components.
+- `options` — An [options object](#options) containing optional
+  config, baseUrl, and exclude options. The `config` option specifies
+  an output file to which the generated require.js config will be
+  written. If a require.js config file already exists at this
+  location, the generated config will be merged into this file.
+- `callback` — A callback to execute when the task is finished. This
+  callback will receive an object that contains the require.js
+  configuration generated from bower components. Note that this
+  includes *only* config elements representing bower components.
 
-You can use `bower-requirejs` directly in your app if you prefer to not rely on the binary.
+You can use `bower-requirejs` directly in your app if you prefer to
+not rely on the binary.
 
 ```js
 var bowerRequireJS = require('bower-requirejs');
@@ -159,14 +182,17 @@ bowerRequireJS(options, function (rjsConfigFromBower) {
 });
 ```
 
-
 ### parse(pkg, name, baseUrl)
 
 - `pkg` — A package object returned from `bower list`
 - `name` — The name of the package
 - `baseUrl` — A baseUrl to use when generating the path
 
-If you would like to just receive a paths object you can do so with the `parse` module. If your package does not contain a `bower.json` file, or if the `bower.json` does not contain a `main` attribute then the parse module will try to use the `primary` module to find a primary, top-level js file.
+If you would like to just receive a paths object you can do so with
+the `parse` module. If your package does not contain a `bower.json`
+file, or if the `bower.json` does not contain a `main` attribute then
+the parse module will try to use the `primary` module to find a
+primary, top-level js file.
 
 ```js
 var bower = require('bower');
@@ -188,10 +214,17 @@ bower.commands.list()
 ### primary(name, canonicalDir, opts)
 
 - `name` — The package name
-- `canonicalDir` — The canonicalDir for the package, either returned by `bower list` or passed in manually
-- `opts` — Use the ```opts.extraSearchDirs``` to specify other dirs to search, relative to the canonicalDir. By default this is ```['dist']```.
+- `canonicalDir` — The canonicalDir for the package, either returned
+  by `bower list` or passed in manually
+- `opts` — Use the `opts.extraSearchDirs` to specify other dirs to
+  search, relative to the canonicalDir. By default this is
+  `['dist']`.
 
-If you just want to look for the js file in a bower component's top-level directory or 'dist' directory you can use the `primary` module. The `primary` module will exclude gruntfiles and `min.js` files. It will also check if `package.json` specifies a `main` js file.
+If you just want to look for the js file in a bower component's
+top-level directory or 'dist' directory you can use the `primary`
+module. The `primary` module will exclude gruntfiles and `min.js`
+files. It will also check if `package.json` specifies a `main` js
+file.
 
 ```js
 var primary = require('bower-requirejs/lib/primary');
@@ -205,8 +238,10 @@ var primaryJS = primary(name, dep);
 
 ### buildConfig(bowerDependencyGraph, options)
 
-- `bowerDependencyGraph` — A bower dependency graph, as returned by a call to `bower.commands.list`
-- `options` — An object containing `baseUrl`, `exclude`, and `transitive` options, as described above.
+- `bowerDependencyGraph` — A bower dependency graph, as returned by a
+  call to `bower.commands.list`
+- `options` — An object containing `baseUrl`, `exclude`, and
+  `transitive` options, as described above.
 
 This module can be used to generate a requireJs config elements from bower components.
 
@@ -225,10 +260,15 @@ bower.commands.list({})
 
 ## Credit
 
-[![Sindre Sorhus](http://gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9?s=144)](http://sindresorhus.com) | [![Rob Dodson](http://gravatar.com/avatar/95c3a3b33ea51545229c625bef42e343?s=144)](http://robdodson.me)
+[![Sindre Sorhus][Sindre Sorhus:avatar]][Sindre Sorhus:website] | [![Rob Dodson][Rob Dodson:avatar]][Rob Dodson:website]
 :---:|:---:
-[Sindre Sorhus](http://sindresorhus.com) (creator) | [Rob Dodson](http://robdodson.me) (maintainer)
+[Sindre Sorhus][Sindre Sorhus:website] (creator) | [Rob Dodson][Rob Dodson:website] (maintainer)
 
+[Sindre Sorhus:avatar]: http://gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9?s=144
+[Sindre Sorhus:website]: http://sindresorhus.com
+
+[Rob Dodson:avatar]: http://gravatar.com/avatar/95c3a3b33ea51545229c625bef42e343?s=144
+[Rob Dodson:website]: http://robdodson.me
 
 ## License
 
