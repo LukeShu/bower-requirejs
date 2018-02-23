@@ -47,8 +47,7 @@
     "nopt": "^3.0.0",
     "object-assign": "^2.0.0",
     "requirejs": "^2.1.5",
-    "slash": "^1.0.0",
-    "update-notifier": "^0.3.0"
+    "slash": "^1.0.0"
   },
   "devDependencies": {
     "bower": "^1.x",

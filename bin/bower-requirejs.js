@@ -2,7 +2,6 @@
 'use strict';
 var nopt = require('nopt');
 var path = require('path');
-var updateNotifier = require('update-notifier');
 var pkg = require('../package.json');
 var project = require('../lib');
 
@@ -64,10 +63,6 @@ function pre() {
   }
 
   init();
-}
-
-if (opts['update-notifier'] !== false) {
-  updateNotifier({pkg: pkg}).notify();
 }
 
 pre();
