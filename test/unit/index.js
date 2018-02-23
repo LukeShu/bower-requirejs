@@ -4,13 +4,13 @@
 'use strict';
 var should = require('should');
 var path = require('path');
-var file = require('file-utils');
+var fs = require('fs');
 
 describe('index', function () {
   describe('when config option provided', function () {
     it('should create a config file if one does not exist', function (done) {
       require('../../lib')({ config: 'tmp/generated-config.js' }, function (generatedConfig) {
-        file.exists(path.join(__dirname, '../../tmp/generated-config.js')).should.be.ok;
+        fs.existsSync(path.join(__dirname, '../../tmp/generated-config.js')).should.be.ok;
         generatedConfig.should.be.ok;
         done();
       });

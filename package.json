@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "chalk": "^1.0.0",
-    "file-utils": "^0.2.1",
+    "glob": "^4.3.5",
     "lodash": "^3.3.0",
     "nopt": "^3.0.0",
     "object-assign": "^2.0.0",
