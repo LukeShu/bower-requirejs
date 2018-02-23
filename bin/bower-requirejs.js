@@ -30,10 +30,6 @@ if (opts['base-url']) {
   opts.baseUrl = opts['base-url'];
 }
 
-function init() {
-  project(opts);
-}
-
 function help() {
   var out = [
     'Usage: bower-requirejs [options]',
@@ -53,16 +49,12 @@ function help() {
   return out.join('\n');
 }
 
-function pre() {
-  if (opts.version) {
-    return console.log(pkg.version);
-  }
-
-  if (opts.help) {
-    return console.log(help());
-  }
-
-  init();
+if (opts.version) {
+  return console.log(pkg.version);
 }
 
-pre();
+if (opts.help) {
+  return console.log(help());
+}
+
+project(opts);
